@@ -160,10 +160,10 @@ const Agents = () => {
                   Add Agent
                 </Button>
               </div>
-              <RoleFilter
+              {/* <RoleFilter
                 value={filterRole}
                 onChange={setFilterRole}
-              />
+              /> */}
               <DataTable
                 columns={columns}
                 data={filteredAgents}
