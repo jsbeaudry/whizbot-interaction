@@ -83,7 +83,7 @@ export function AgentDialog({ open, onOpenChange, onSave, initialData }: AgentDi
             </div>
             <div className="grid gap-2">
               <Label htmlFor="role">Role</Label>
-              {/* <Select
+              <Select
                 value={formData.role}
                 onValueChange={(value) =>
                   setFormData((prev) => ({ ...prev, role: value }))
@@ -98,11 +98,11 @@ export function AgentDialog({ open, onOpenChange, onSave, initialData }: AgentDi
                   <SelectItem value="technical_support">Technical Support</SelectItem>
                   <SelectItem value="marketing">Marketing</SelectItem>
                 </SelectContent>
-              </Select> */}
+              </Select>
             </div>
             <div className="grid gap-2">
               <Label htmlFor="status">Status</Label>
-              {/* <Select
+              <Select
                 value={formData.status}
                 onValueChange={(value: "online" | "offline" | "busy") =>
                   setFormData((prev) => ({ ...prev, status: value }))
@@ -116,7 +116,7 @@ export function AgentDialog({ open, onOpenChange, onSave, initialData }: AgentDi
                   <SelectItem value="offline">Offline</SelectItem>
                   <SelectItem value="busy">Busy</SelectItem>
                 </SelectContent>
-              </Select> */}
+              </Select>
             </div>
           </div>
           <DialogFooter>
