@@ -10,7 +10,6 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -37,6 +36,7 @@ export const DashboardSidebar = () => {
 
   return (
     <>
+      {/* Fixed Header */}
       <div className="fixed top-0 left-0 right-0 z-50 bg-background border-b">
         <div className="flex h-14 items-center px-4 md:px-6">
           <span className="font-bold text-lg">AI Agent Manager</span>
@@ -56,6 +56,7 @@ export const DashboardSidebar = () => {
         </div>
       </div>
       
+      {/* Sidebar */}
       <Sidebar className="mt-14">
         <SidebarContent className={`
           fixed inset-x-0 top-14 bottom-0 z-40 bg-background md:relative md:top-0 md:z-0
@@ -63,6 +64,14 @@ export const DashboardSidebar = () => {
           ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
           border-r md:border-r-0
         `}>
+          <SidebarHeader className="p-4">
+            <div className="space-y-1">
+              <h2 className="text-lg font-semibold tracking-tight">Navigation</h2>
+              <p className="text-sm text-muted-foreground">
+                Manage your AI agents and interactions
+              </p>
+            </div>
+          </SidebarHeader>
           <SidebarGroup>
             <SidebarGroupLabel>Menu</SidebarGroupLabel>
             <SidebarGroupContent>
