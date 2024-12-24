@@ -36,10 +36,10 @@ export const DashboardSidebar = () => {
   };
 
   return (
-    <Sidebar>
-      <SidebarHeader className="flex h-14 items-center border-b px-4 md:px-6">
-        <span className="font-bold text-lg">AI Agent Manager</span>
-        <SidebarTrigger>
+    <>
+      <div className="fixed top-0 left-0 right-0 z-50 bg-background border-b">
+        <div className="flex h-14 items-center px-4 md:px-6">
+          <span className="font-bold text-lg">AI Agent Manager</span>
           <Button 
             variant="ghost" 
             size="icon" 
@@ -53,33 +53,36 @@ export const DashboardSidebar = () => {
             )}
             <span className="sr-only">Toggle Menu</span>
           </Button>
-        </SidebarTrigger>
-      </SidebarHeader>
-      <SidebarContent className={`${isOpen ? 'block' : 'hidden'} md:block transition-all duration-300 ease-in-out`}>
-        <SidebarGroup>
-          <SidebarGroupLabel>Menu</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {menuItems.map((item) => (
-                <SidebarMenuItem key={item.label}>
-                  <SidebarMenuButton>
-                    <a 
-                      href={item.href} 
-                      className={`flex items-center gap-2 w-full px-2 py-1.5 text-sm rounded-md transition-colors
-                        ${location.pathname === item.href ? 'bg-primary/10 text-primary' : 'hover:bg-muted'}
-                      `}
-                      onClick={closeMenu}
-                    >
-                      <item.icon className="h-4 w-4 shrink-0" />
-                      <span>{item.label}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-    </Sidebar>
+        </div>
+      </div>
+      
+      <Sidebar className="mt-14">
+        <SidebarContent className={`${isOpen ? 'block' : 'hidden'} md:block transition-all duration-300 ease-in-out`}>
+          <SidebarGroup>
+            <SidebarGroupLabel>Menu</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {menuItems.map((item) => (
+                  <SidebarMenuItem key={item.label}>
+                    <SidebarMenuButton>
+                      <a 
+                        href={item.href} 
+                        className={`flex items-center gap-2 w-full px-2 py-1.5 text-sm rounded-md transition-colors
+                          ${location.pathname === item.href ? 'bg-primary/10 text-primary' : 'hover:bg-muted'}
+                        `}
+                        onClick={closeMenu}
+                      >
+                        <item.icon className="h-4 w-4 shrink-0" />
+                        <span>{item.label}</span>
+                      </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>
+    </>
   );
 };
