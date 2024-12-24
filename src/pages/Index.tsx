@@ -34,10 +34,10 @@ const Index = () => {
       <div className="flex min-h-screen w-full bg-background">
         <DashboardSidebar />
         <SidebarInset>
-          <div className="p-6 lg:p-8">
+          <div className="p-4 md:p-6 lg:p-8">
             <div className="grid gap-4 md:gap-8 animate-fade-in">
-              <h1 className="text-4xl font-bold">Dashboard</h1>
-              <div className="grid gap-4 md:grid-cols-3">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">Dashboard</h1>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 <AnalyticsCard
                   title="Total Conversations"
                   value="1,234"
@@ -54,7 +54,7 @@ const Index = () => {
                   description="Based on feedback"
                 />
               </div>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {mockAgents.map((agent) => (
                   <AgentCard key={agent.name} {...agent} />
                 ))}

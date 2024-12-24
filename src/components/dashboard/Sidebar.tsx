@@ -24,11 +24,16 @@ const menuItems = [
 export const DashboardSidebar = () => {
   return (
     <Sidebar>
-      <SidebarHeader className="flex h-14 items-center border-b px-6">
-        <span className="font-bold">AI Agent Manager</span>
+      <SidebarHeader className="flex h-14 items-center border-b px-4 md:px-6">
+        <span className="font-bold text-lg">AI Agent Manager</span>
         <SidebarTrigger>
-          <Button variant="ghost" size="icon" className="ml-auto h-8 w-8">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="ml-auto h-8 w-8 md:hidden"
+          >
             <Menu className="h-4 w-4" />
+            <span className="sr-only">Toggle Menu</span>
           </Button>
         </SidebarTrigger>
       </SidebarHeader>
@@ -40,8 +45,11 @@ export const DashboardSidebar = () => {
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.label}>
                   <SidebarMenuButton>
-                    <a href={item.href} className="flex items-center gap-2">
-                      <item.icon className="h-4 w-4" />
+                    <a 
+                      href={item.href} 
+                      className="flex items-center gap-2 w-full px-2 py-1.5 text-sm"
+                    >
+                      <item.icon className="h-4 w-4 shrink-0" />
                       <span>{item.label}</span>
                     </a>
                   </SidebarMenuButton>
