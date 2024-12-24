@@ -58,9 +58,10 @@ export const DashboardSidebar = () => {
       
       <Sidebar className="mt-14">
         <SidebarContent className={`
-          fixed inset-x-0 top-14 bottom-0 z-40 bg-background md:relative md:top-0 
+          fixed inset-x-0 top-14 bottom-0 z-40 bg-background md:relative md:top-0 md:z-0
           transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+          border-r md:border-r-0
         `}>
           <SidebarGroup>
             <SidebarGroupLabel>Menu</SidebarGroupLabel>
