@@ -18,6 +18,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const STORAGE_KEY = "ai_agents";
 
@@ -27,6 +29,7 @@ const Agents = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
+  const [filterRole, setFilterRole] = useState("");
 
   useEffect(() => {
     const storedAgents = localStorage.getItem(STORAGE_KEY);
@@ -81,6 +84,10 @@ const Agents = () => {
       description: "Agent deleted successfully",
     });
   };
+
+  const filteredAgents = agents.filter(agent => 
+    filterRole ? agent.role.includes(filterRole.toLowerCase()) : true
+  );
 
   const columns: ColumnDef<Agent>[] = [
     {
@@ -167,17 +174,20 @@ const Agents = () => {
                   Add Agent
                 </Button>
               </div>
+              <div className="mb-4">
+                <Label htmlFor="roleFilter">Filter by Role</Label>
+                <Input
+                  id="roleFilter"
+                  value={filterRole}
+                  onChange={(e) => setFilterRole(e.target.value)}
+                  placeholder="Enter role to filter..."
+                  className="max-w-xs"
+                />
+              </div>
               <DataTable
                 columns={columns}
-                data={agents}
+                data={filteredAgents}
                 searchKey="name"
-                filterKey="role"
-                filterOptions={[
-                  { label: "Customer Support", value: "customer_support" },
-                  { label: "Sales", value: "sales" },
-                  { label: "Technical Support", value: "technical_support" },
-                  { label: "Marketing", value: "marketing" },
-                ]}
               />
             </div>
           </div>
