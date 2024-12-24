@@ -9,13 +9,6 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -83,40 +76,25 @@ export function AgentDialog({ open, onOpenChange, onSave, initialData }: AgentDi
             </div>
             <div className="grid gap-2">
               <Label htmlFor="role">Role</Label>
-              <Select
+              <Input
+                id="role"
                 value={formData.role}
-                onValueChange={(value) =>
-                  setFormData((prev) => ({ ...prev, role: value }))
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, role: e.target.value }))
                 }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a role" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="customer_support">Customer Support</SelectItem>
-                  <SelectItem value="sales">Sales</SelectItem>
-                  <SelectItem value="technical_support">Technical Support</SelectItem>
-                  <SelectItem value="marketing">Marketing</SelectItem>
-                </SelectContent>
-              </Select>
+                placeholder="Enter role (e.g., customer_support, sales)"
+              />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="status">Status</Label>
-              <Select
+              <Input
+                id="status"
                 value={formData.status}
-                onValueChange={(value: "online" | "offline" | "busy") =>
-                  setFormData((prev) => ({ ...prev, status: value }))
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, status: e.target.value as "online" | "offline" | "busy" }))
                 }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="online">Online</SelectItem>
-                  <SelectItem value="offline">Offline</SelectItem>
-                  <SelectItem value="busy">Busy</SelectItem>
-                </SelectContent>
-              </Select>
+                placeholder="Enter status (online, offline, busy)"
+              />
             </div>
           </div>
           <DialogFooter>
