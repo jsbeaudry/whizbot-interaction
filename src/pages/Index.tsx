@@ -1,4 +1,4 @@
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { DashboardSidebar } from "@/components/dashboard/Sidebar";
 import { AgentCard } from "@/components/dashboard/AgentCard";
 import { ActivityTimeline } from "@/components/dashboard/ActivityTimeline";
@@ -31,39 +31,41 @@ const mockAgents = [
 const Index = () => {
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-background">
+      <div className="flex min-h-screen w-full bg-background">
         <DashboardSidebar />
-        <main className="flex-1 p-6 lg:p-8 pt-6">
-          <div className="grid gap-4 md:gap-8 animate-fade-in">
-            <h1 className="text-4xl font-bold">Dashboard</h1>
-            <div className="grid gap-4 md:grid-cols-3">
-              <AnalyticsCard
-                title="Total Conversations"
-                value="1,234"
-                description="15% increase from last week"
-              />
-              <AnalyticsCard
-                title="Response Time"
-                value="1.5m"
-                description="Average response time"
-              />
-              <AnalyticsCard
-                title="Customer Satisfaction"
-                value="94%"
-                description="Based on feedback"
-              />
-            </div>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {mockAgents.map((agent) => (
-                <AgentCard key={agent.name} {...agent} />
-              ))}
-            </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              <ActivityTimeline />
-              <ActivityTimeline />
+        <SidebarInset>
+          <div className="p-6 lg:p-8">
+            <div className="grid gap-4 md:gap-8 animate-fade-in">
+              <h1 className="text-4xl font-bold">Dashboard</h1>
+              <div className="grid gap-4 md:grid-cols-3">
+                <AnalyticsCard
+                  title="Total Conversations"
+                  value="1,234"
+                  description="15% increase from last week"
+                />
+                <AnalyticsCard
+                  title="Response Time"
+                  value="1.5m"
+                  description="Average response time"
+                />
+                <AnalyticsCard
+                  title="Customer Satisfaction"
+                  value="94%"
+                  description="Based on feedback"
+                />
+              </div>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {mockAgents.map((agent) => (
+                  <AgentCard key={agent.name} {...agent} />
+                ))}
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <ActivityTimeline />
+                <ActivityTimeline />
+              </div>
             </div>
           </div>
-        </main>
+        </SidebarInset>
       </div>
     </SidebarProvider>
   );
