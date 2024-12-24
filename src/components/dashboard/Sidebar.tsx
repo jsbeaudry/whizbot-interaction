@@ -10,7 +10,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarProvider,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -36,7 +36,7 @@ export const DashboardSidebar = () => {
   };
 
   return (
-    <SidebarProvider>
+    <>
       <div className="fixed top-0 left-0 right-0 z-50 bg-background border-b">
         <div className="flex h-14 items-center px-4 md:px-6">
           <span className="font-bold text-lg">AI Agent Manager</span>
@@ -63,16 +63,13 @@ export const DashboardSidebar = () => {
           ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
           border-r md:border-r-0
         `}>
-          <SidebarHeader className="px-2 py-4">
-            <h2 className="text-lg font-semibold tracking-tight">Navigation</h2>
-          </SidebarHeader>
           <SidebarGroup>
             <SidebarGroupLabel>Menu</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 {menuItems.map((item) => (
                   <SidebarMenuItem key={item.label}>
-                    <SidebarMenuButton asChild>
+                    <SidebarMenuButton>
                       <a 
                         href={item.href} 
                         className={`flex items-center gap-2 w-full px-2 py-1.5 text-sm rounded-md transition-colors
@@ -91,6 +88,6 @@ export const DashboardSidebar = () => {
           </SidebarGroup>
         </SidebarContent>
       </Sidebar>
-    </SidebarProvider>
+    </>
   );
 };
