@@ -16,7 +16,8 @@ import {
 const menuItems = [
   { icon: Home, label: "Dashboard", href: "/" },
   { icon: Users, label: "Agents", href: "/agents" },
-  { icon: MessageSquare, label: "Conversations", href: "/conversations" },
+  { icon: Users, label: "Customers", href: "/customers" },
+  { icon: MessageSquare, label: "Messages", href: "/messages" },
   { icon: Settings, label: "Settings", href: "/settings" },
 ];
 
