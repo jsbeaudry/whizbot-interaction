@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { AgentCard } from "@/components/dashboard/AgentCard";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { DashboardSidebar } from "@/components/dashboard/Sidebar";
 import { Button } from "@/components/ui/button";
 import { UserPlus, Pencil, Trash2 } from "lucide-react";
 import { AgentDialog, type Agent } from "@/components/agents/AgentDialog";
+import { DataTable } from "@/components/ui/data-table";
+import { ColumnDef } from "@tanstack/react-table";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,7 +16,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
+import { Badge } from "@/components/ui/badge";
 
 const STORAGE_KEY = "ai_agents";
 
@@ -80,6 +82,77 @@ const Agents = () => {
     });
   };
 
+  const columns: ColumnDef<Agent>[] = [
+    {
+      accessorKey: "name",
+      header: "Name",
+    },
+    {
+      accessorKey: "role",
+      header: "Role",
+      cell: ({ row }) => {
+        const role = row.getValue("role") as string;
+        return role.split("_").map(word => 
+          word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(" ");
+      }
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) => {
+        const status = row.getValue("status") as string;
+        return (
+          <Badge variant={status === "active" ? "default" : "secondary"}>
+            {status.charAt(0).toUpperCase() + status.slice(1)}
+          </Badge>
+        );
+      },
+    },
+    {
+      accessorKey: "activeChats",
+      header: "Active Chats",
+    },
+    {
+      accessorKey: "responseRate",
+      header: "Response Rate",
+      cell: ({ row }) => {
+        const rate = row.getValue("responseRate") as number;
+        return `${rate}%`;
+      },
+    },
+    {
+      id: "actions",
+      cell: ({ row }) => {
+        const agent = row.original;
+        return (
+          <div className="flex gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => {
+                setSelectedAgent(agent);
+                setDialogOpen(true);
+              }}
+            >
+              <Pencil className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => {
+                setSelectedAgent(agent);
+                setDeleteDialogOpen(true);
+              }}
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          </div>
+        );
+      },
+    },
+  ];
+
   return (
     <SidebarProvider>
       <div className="flex min-h-screen w-full bg-background">
@@ -94,35 +167,18 @@ const Agents = () => {
                   Add Agent
                 </Button>
               </div>
-              <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                {agents.map((agent) => (
-                  <div key={agent.id} className="relative group">
-                    <AgentCard {...agent} />
-                    <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Button
-                        variant="secondary"
-                        size="icon"
-                        onClick={() => {
-                          setSelectedAgent(agent);
-                          setDialogOpen(true);
-                        }}
-                      >
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        variant="destructive"
-                        size="icon"
-                        onClick={() => {
-                          setSelectedAgent(agent);
-                          setDeleteDialogOpen(true);
-                        }}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <DataTable
+                columns={columns}
+                data={agents}
+                searchKey="name"
+                filterKey="role"
+                filterOptions={[
+                  { label: "Customer Support", value: "customer_support" },
+                  { label: "Sales", value: "sales" },
+                  { label: "Technical Support", value: "technical_support" },
+                  { label: "Marketing", value: "marketing" },
+                ]}
+              />
             </div>
           </div>
         </SidebarInset>
