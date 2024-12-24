@@ -1,4 +1,4 @@
-import { Home, Users, MessageSquare, Settings, Menu } from "lucide-react";
+import { Home, Users, MessageSquare, Settings, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sidebar,
@@ -12,6 +12,8 @@ import {
   SidebarMenuButton,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const menuItems = [
   { icon: Home, label: "Dashboard", href: "/" },
@@ -22,6 +24,17 @@ const menuItems = [
 ];
 
 export const DashboardSidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   return (
     <Sidebar>
       <SidebarHeader className="flex h-14 items-center border-b px-4 md:px-6">
@@ -31,13 +44,18 @@ export const DashboardSidebar = () => {
             variant="ghost" 
             size="icon" 
             className="ml-auto h-8 w-8 md:hidden"
+            onClick={toggleMenu}
           >
-            <Menu className="h-4 w-4" />
+            {isOpen ? (
+              <X className="h-4 w-4" />
+            ) : (
+              <Menu className="h-4 w-4" />
+            )}
             <span className="sr-only">Toggle Menu</span>
           </Button>
         </SidebarTrigger>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className={`${isOpen ? 'block' : 'hidden'} md:block transition-all duration-300 ease-in-out`}>
         <SidebarGroup>
           <SidebarGroupLabel>Menu</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -47,7 +65,10 @@ export const DashboardSidebar = () => {
                   <SidebarMenuButton>
                     <a 
                       href={item.href} 
-                      className="flex items-center gap-2 w-full px-2 py-1.5 text-sm"
+                      className={`flex items-center gap-2 w-full px-2 py-1.5 text-sm rounded-md transition-colors
+                        ${location.pathname === item.href ? 'bg-primary/10 text-primary' : 'hover:bg-muted'}
+                      `}
+                      onClick={closeMenu}
                     >
                       <item.icon className="h-4 w-4 shrink-0" />
                       <span>{item.label}</span>
