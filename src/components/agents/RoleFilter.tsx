@@ -21,7 +21,7 @@ export function RoleFilter({ value, onChange }: RoleFilterProps) {
           <SelectValue placeholder="Select a role" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="">All Roles</SelectItem>
+          <SelectItem value="All">All Roles</SelectItem>
           <SelectItem value="customer_support">Customer Support</SelectItem>
           <SelectItem value="sales">Sales</SelectItem>
           <SelectItem value="technical_support">Technical Support</SelectItem>
