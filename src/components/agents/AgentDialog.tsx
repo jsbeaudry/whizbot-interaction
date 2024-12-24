@@ -83,14 +83,22 @@ export function AgentDialog({ open, onOpenChange, onSave, initialData }: AgentDi
             </div>
             <div className="grid gap-2">
               <Label htmlFor="role">Role</Label>
-              <Input
-                id="role"
+              <Select
                 value={formData.role}
-                onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, role: e.target.value }))
+                onValueChange={(value) =>
+                  setFormData((prev) => ({ ...prev, role: value }))
                 }
-                placeholder="e.g., Customer Support"
-              />
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a role" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="customer_support">Customer Support</SelectItem>
+                  <SelectItem value="sales">Sales</SelectItem>
+                  <SelectItem value="technical_support">Technical Support</SelectItem>
+                  <SelectItem value="marketing">Marketing</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div className="grid gap-2">
               <Label htmlFor="status">Status</Label>
