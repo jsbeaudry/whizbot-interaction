@@ -72,7 +72,7 @@ export function DataTable<TData, TValue>({
             className="max-w-sm"
           />
         )}
-        {filterKey && filterOptions && (
+        {/* {filterKey && filterOptions && (
           <Select
             value={(table.getColumn(filterKey)?.getFilterValue() as string) ?? ""}
             onValueChange={(value) => table.getColumn(filterKey)?.setFilterValue(value)}
@@ -89,7 +89,7 @@ export function DataTable<TData, TValue>({
               ))}
             </SelectContent>
           </Select>
-        )}
+        )} */}
       </div>
       <div className="rounded-md border">
         <Table>
