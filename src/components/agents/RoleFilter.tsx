@@ -16,7 +16,7 @@ export function RoleFilter({ value, onChange }: RoleFilterProps) {
   return (
     <div className="mb-4 space-y-1">
       <Label htmlFor="roleFilter">Filter by Role</Label>
-      <Select value={value} onValueChange={onChange}>
+      {/* <Select value={value} onValueChange={onChange}>
         <SelectTrigger id="roleFilter" className="w-[200px]">
           <SelectValue placeholder="Select a role" />
         </SelectTrigger>
@@ -27,7 +27,7 @@ export function RoleFilter({ value, onChange }: RoleFilterProps) {
           <SelectItem value="technical_support">Technical Support</SelectItem>
           <SelectItem value="marketing">Marketing</SelectItem>
         </SelectContent>
-      </Select>
+      </Select> */}
     </div>
   );
 }
