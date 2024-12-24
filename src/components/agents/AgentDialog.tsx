@@ -39,7 +39,7 @@ export function AgentDialog({ open, onOpenChange, onSave, initialData }: AgentDi
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: initialData?.name || "",
-    role: initialData?.role || "",
+    role: initialData?.role || "customer_support", // Set a default value
     status: initialData?.status || "offline",
   });
 
