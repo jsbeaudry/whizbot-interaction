@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { DashboardSidebar } from "@/components/dashboard/Sidebar";
 import { Button } from "@/components/ui/button";
-import { UserPlus, Pencil, Trash2 } from "lucide-react";
+import { UserPlus } from "lucide-react";
 import { AgentDialog, type Agent } from "@/components/agents/AgentDialog";
 import { DataTable } from "@/components/ui/data-table";
 import { ColumnDef } from "@tanstack/react-table";
@@ -18,8 +18,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { RoleFilter } from "@/components/agents/RoleFilter";
+import { AgentActions } from "@/components/agents/AgentActions";
 
 const STORAGE_KEY = "ai_agents";
 
@@ -86,7 +86,7 @@ const Agents = () => {
   };
 
   const filteredAgents = agents.filter(agent => 
-    filterRole ? agent.role.includes(filterRole.toLowerCase()) : true
+    filterRole ? agent.role === filterRole : true
   );
 
   const columns: ColumnDef<Agent>[] = [
@@ -130,33 +130,19 @@ const Agents = () => {
     },
     {
       id: "actions",
-      cell: ({ row }) => {
-        const agent = row.original;
-        return (
-          <div className="flex gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => {
-                setSelectedAgent(agent);
-                setDialogOpen(true);
-              }}
-            >
-              <Pencil className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => {
-                setSelectedAgent(agent);
-                setDeleteDialogOpen(true);
-              }}
-            >
-              <Trash2 className="h-4 w-4" />
-            </Button>
-          </div>
-        );
-      },
+      cell: ({ row }) => (
+        <AgentActions
+          agent={row.original}
+          onEdit={(agent) => {
+            setSelectedAgent(agent);
+            setDialogOpen(true);
+          }}
+          onDelete={(agent) => {
+            setSelectedAgent(agent);
+            setDeleteDialogOpen(true);
+          }}
+        />
+      ),
     },
   ];
 
@@ -174,16 +160,10 @@ const Agents = () => {
                   Add Agent
                 </Button>
               </div>
-              <div className="mb-4">
-                <Label htmlFor="roleFilter">Filter by Role</Label>
-                <Input
-                  id="roleFilter"
-                  value={filterRole}
-                  onChange={(e) => setFilterRole(e.target.value)}
-                  placeholder="Enter role to filter..."
-                  className="max-w-xs"
-                />
-              </div>
+              <RoleFilter
+                value={filterRole}
+                onChange={setFilterRole}
+              />
               <DataTable
                 columns={columns}
                 data={filteredAgents}
