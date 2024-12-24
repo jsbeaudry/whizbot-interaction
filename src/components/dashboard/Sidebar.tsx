@@ -25,7 +25,7 @@ export const DashboardSidebar = () => {
     <Sidebar>
       <SidebarHeader className="flex h-14 items-center border-b px-6">
         <span className="font-bold">AI Agent Manager</span>
-        <SidebarTrigger asChild>
+        <SidebarTrigger>
           <Button variant="ghost" size="icon" className="ml-auto h-8 w-8">
             <Menu className="h-4 w-4" />
           </Button>
@@ -38,7 +38,7 @@ export const DashboardSidebar = () => {
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.label}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton>
                     <a href={item.href} className="flex items-center gap-2">
                       <item.icon className="h-4 w-4" />
                       <span>{item.label}</span>
